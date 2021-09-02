@@ -16,19 +16,19 @@ class Crawler {
       const loadedContent = $(element);
       const rank = Number(loadedContent.find(".lister-item-index").text().trim().replace(/,/g,""));
       const title = loadedContent.find("h3>a").text().trim();
-      const year = loadedContent.find(".lister-item-year").text().trim().substr(1, 4);
+      const year = Number(loadedContent.find(".lister-item-year").text().trim().substr(1, 4));
       const certificate = loadedContent.find(".certificate").text().trim();
       const runtime = loadedContent.find(".runtime").text().trim();
       let genre = loadedContent.find(".genre").text().trim();
-      genre = genre.split(",");
-      const imdbRating = loadedContent.find(".ratings-imdb-rating>strong").text().trim();
+      genre = genre.split(",").map( el => el.trim());
+      const imdbRating = Number(loadedContent.find(".ratings-imdb-rating>strong").text().trim());
       const metascore = loadedContent.find(".metascore").text().trim();
       const additionalInfo = loadedContent.children("p");
       const description = additionalInfo.eq(1).text().trim();
       let people = additionalInfo.eq(2).text().trim().replace(/\n/g, "");
       let [directors, stars] = people.split("|").map(el => el.trim());
-      directors = directors.substring(9).split(",").map(el => el.trim());
-      stars = stars.substring(6).split(",").map(el => el.trim());
+      directors = directors.substring(directors.indexOf(":")+1).split(",").map(el => el.trim());
+      stars = stars.substring(stars.indexOf(":")+1).split(",").map(el => el.trim());
       this.#fetchedData.push({
         rank, title, year, certificate, runtime, genre, imdbRating, metascore, description, directors, stars
       })
@@ -62,7 +62,7 @@ class Crawler {
       if (err) {
         console.log(err)
       } else {
-        console.log("Writing to file was successfull");
+        console.log("Writing to file was successful");
       }
     })
   }
