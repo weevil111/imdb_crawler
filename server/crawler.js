@@ -8,11 +8,16 @@ class Crawler {
   getFetchedData() {
     return this.#fetchedData;
   }
-
+  /**
+   * 
+   * @param {string} html  The html string to be parsed by cheerio
+   */
   #extractFieldsFromHTML(html) {
     const $ = cheerio.load(html);
-    $(".lister-item-content").each((index, element) => {
 
+    $(".lister-item-content").each((index, element) => {
+      
+      // Extracting values from various tags and format them
       const loadedContent = $(element);
       const img = loadedContent.prev().find("img").attr("loadlate")
       const rank = Number(loadedContent.find(".lister-item-index").text().trim().replace(/,/g,""));
@@ -34,9 +39,16 @@ class Crawler {
       this.#fetchedData.push({
         rank, title, img, year, certificate, runtime, genre, imdbRating, metascore, description, directors, stars
       })
+
     })
   }
 
+  /**
+   * 
+   * @param {number} startMovieNumber The starting movie number in the request made to IMDB
+   * @param {number} movieCount Number of movies to be fetched per page ( Maximum : 250)
+   * @returns {Promise} Resolves when the IMDB page has been crawled and data saved to private field
+   */
   async makeRequestAndExtractFields(startMovieNumber = 1, movieCount = 10) {
     return new Promise((resolve, reject) => {
       request(`https://www.imdb.com/search/title/?groups=top_1000&sort=user_rating,desc&count=${movieCount}&start=${startMovieNumber}&ref_=adv_nxt`,
@@ -51,6 +63,9 @@ class Crawler {
     })
   }
 
+  /**
+   * Crawl the top 1000 movies from IMDB and save to local storage
+   */
   async crawl() {
     let moviesPerPage = 250
     for(let i = 0; i < 4; i++){
@@ -59,6 +74,9 @@ class Crawler {
     this.#saveDataToJsonFile();
   }
 
+  /**
+   * Save extracted data, from private class field to "./movies.json" file
+   */
   #saveDataToJsonFile() {
     fs.writeFile("movies.json", JSON.stringify(this.#fetchedData, null, 2), function (err) {
       if (err) {

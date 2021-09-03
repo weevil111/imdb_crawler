@@ -1,6 +1,6 @@
 const moviesData = require("./movies.json");
 const express = require('express');
-const {getUniqueArrayFieldValues, filterMovies} = require("./utility");
+const {getUniqueArrayFieldValues, filterMovies, paginate} = require("./utility");
 
 const port = 3001;
 const app = express();
@@ -22,7 +22,8 @@ app.get("/selectorFields", (req, res)=> {
 app.post("/search", (req, res) => {
   console.log(req.body.filters);
   let result = filterMovies(moviesData, req.body.filters);
-  res.status(200).json(result);
+  let paginatedResult = paginate(result, req.query.page, req.query.limit)
+  res.status(200).json(paginatedResult);
 })
 
 app.listen(port, () => {
