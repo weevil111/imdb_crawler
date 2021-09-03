@@ -1,6 +1,6 @@
 const moviesData = require("./movies.json");
 const express = require('express');
-const {getUniqueArrayFieldValues} = require("./utility");
+const {getUniqueArrayFieldValues, filterMovies} = require("./utility");
 
 const port = 3001;
 const app = express();
@@ -19,9 +19,10 @@ app.get("/selectorFields", (req, res)=> {
   })
 })
 
-app.post("/", (req, res) => {
-  console.log(req.query);
-  res.status(200).send("Hello");
+app.post("/search", (req, res) => {
+  console.log(req.body.filters);
+  let result = filterMovies(moviesData, req.body.filters);
+  res.status(200).json(result);
 })
 
 app.listen(port, () => {

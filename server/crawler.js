@@ -14,15 +14,17 @@ class Crawler {
     $(".lister-item-content").each((index, element) => {
 
       const loadedContent = $(element);
+      const img = loadedContent.prev().find("img").attr("loadlate")
       const rank = Number(loadedContent.find(".lister-item-index").text().trim().replace(/,/g,""));
       const title = loadedContent.find("h3>a").text().trim();
       const year = Number(loadedContent.find(".lister-item-year").text().trim().substr(1, 4));
       const certificate = loadedContent.find(".certificate").text().trim();
-      const runtime = loadedContent.find(".runtime").text().trim();
+      let runtime = loadedContent.find(".runtime").text().trim();
+      runtime = Number(runtime.substring(0, runtime.indexOf("min")-1));
       let genre = loadedContent.find(".genre").text().trim();
       genre = genre.split(",").map( el => el.trim());
       const imdbRating = Number(loadedContent.find(".ratings-imdb-rating>strong").text().trim());
-      const metascore = loadedContent.find(".metascore").text().trim();
+      const metascore = Number(loadedContent.find(".metascore").text().trim());
       const additionalInfo = loadedContent.children("p");
       const description = additionalInfo.eq(1).text().trim();
       let people = additionalInfo.eq(2).text().trim().replace(/\n/g, "");
@@ -30,7 +32,7 @@ class Crawler {
       directors = directors.substring(directors.indexOf(":")+1).split(",").map(el => el.trim());
       stars = stars.substring(stars.indexOf(":")+1).split(",").map(el => el.trim());
       this.#fetchedData.push({
-        rank, title, year, certificate, runtime, genre, imdbRating, metascore, description, directors, stars
+        rank, title, img, year, certificate, runtime, genre, imdbRating, metascore, description, directors, stars
       })
     })
   }
