@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "crawl": "node crawler.js",
+    "start": "node mainServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
