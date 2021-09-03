@@ -8,6 +8,7 @@ class Crawler {
   getFetchedData() {
     return this.#fetchedData;
   }
+  
   /**
    * 
    * @param {string} html  The html string to be parsed by cheerio

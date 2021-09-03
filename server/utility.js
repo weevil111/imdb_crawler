@@ -93,7 +93,6 @@ function filterMovies(movies, queries) {
  * @returns An object containing paginated data, totalPages and count properties set
  */
 function paginate(data, pageNumber = 1, limit = 10) {
-  this.paginate()
   pageNumber = Number(pageNumber);
   limit = Number(limit);
 

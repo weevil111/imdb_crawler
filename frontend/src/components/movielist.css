@@ -1,0 +1,23 @@
+.container{
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid;
+}
+
+.right{
+  width: 80%;
+}
+
+.info-container{
+  display: flex;
+}
+.info-title{
+  font-weight: bold;
+  text-transform: capitalize;
+  padding: 5px;
+}
+.info-description{
+  padding: 5px;
+  overflow: hidden;
+}
