@@ -3,11 +3,13 @@
 ## Backend
 Goto **server** directory
 Run the following commands
-1. _npm run crawl_
-2. _npm run start_
+1. **_npm install_**
+2. **_npm run crawl_**
+3. **_npm run start_**
 
-## Frontent
+## Frontend
 Goto **frontend** directory
 Run the following command:
-_npm start_
+1. **_npm install_**
+2. **_npm start_**
 
