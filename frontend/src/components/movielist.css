@@ -1,7 +1,7 @@
 .container{
   display: flex;
   width: 80%;
-  margin: 0 auto;
+  margin: 10px auto;
   border: 1px solid;
 }
 
@@ -20,4 +20,10 @@
 .info-description{
   padding: 5px;
   overflow: hidden;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 }

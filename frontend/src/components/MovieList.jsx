@@ -1,12 +1,14 @@
 import React from 'react'
 import "./movielist.css";
+import Pagination from '@material-ui/lab/Pagination';
 
-function MovieList({ movies }) {
+function MovieList({ movies, setPagination }) {
 
   let infoproperties = [];
   if (movies.data?.length > 0) {
     infoproperties = Object.keys(movies.data[0]);
   }
+
 
   return movies.data?.length > 0 ? (
     <>
@@ -16,7 +18,11 @@ function MovieList({ movies }) {
             <img src={movie.img} alt="" />
           </div>
           <div className="right">
-            {infoproperties.map(infoName => (
+            {infoproperties.map(infoName =>{ 
+              if(infoName==="img"){
+                return <></>
+              }
+              return (
               <div className="info-container" key={infoName}>
                 <div className="info-title">
                   {infoName}
@@ -25,11 +31,16 @@ function MovieList({ movies }) {
                   {movie[infoName]}
                 </div>
               </div>
-          ))}
+             ) })}
           </div>
         </div>
       ))}
-    </>) : <></>
+      <Pagination 
+        style={{textAlign: "center"}} 
+        onChange={(e,value) => setPagination(value)}
+        count={movies.data.length} 
+        color="primary" />
+    </>) : <div> No movies found</div>
 }
 
-      export default MovieList
+export default MovieList

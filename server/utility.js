@@ -74,8 +74,11 @@ function filterMovies(movies, queries) {
 
   let filteredMovies = movies;
   for (let queryFieldName in queries) {
+    let queryValue = queries[queryFieldName];
+    if(!queryValue){
+      continue;
+    }
     filteredMovies = filteredMovies.filter(movie => {
-      let queryValue = queries[queryFieldName];
       if (!testObjectField(queryFieldName, movie[queryFieldName], queryValue)) {
         return false;
       }

@@ -1,0 +1,14 @@
+.filters{
+  margin: 10px;
+  text-align: center;
+}
+.selectors,.textfields{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.selectors>.MuiFormControl-root{
+  min-width: 10rem;
+  margin: 1rem;
+  text-align: center;
+}
